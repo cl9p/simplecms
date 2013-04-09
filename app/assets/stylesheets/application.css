@@ -11,3 +11,19 @@
  *= require_self
  *= require_tree .
  */
+
+li.group {
+	list-style-type: none;
+	margin-left: -15px;
+	font-size: 14px;
+	color: red;
+}
+
+li.highlight {
+	list-style-type: none;
+	margin-left: -5px;
+}
+
+li i {
+	margin-right: 10px;
+}

@@ -15,13 +15,12 @@ class ArticlesController < ApplicationController
     query_string = params[:q]
     @search = true
     @articles = Article.search  do
-      query {string query_string}
-      highlight :attachment, :options => { :tag => '<strong class="highlight">' }
+      query do
+        match [:attachment, :content], query_string
+      end
+      highlight :content, :attachment, :options => { :tag => '<strong class="highlight">', :fragment_size => "50", :number_of_fragments => "5"}
     end
-    #@articles.each_with_hit do |result, hit|
-    #  puts "#{result.title} (inspection: #{hit.inspect})"
-    #end
-    render :action => "index"
+    render :action => "search"
   end
 
   # GET /articles/1

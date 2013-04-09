@@ -1,4 +1,4 @@
-<div class="page-header"><h1>Listing Articles</h1></div>
+<div class="page-header"><h1>Searching Articles</h1></div>
 
 <div>
 <%= form_tag search_articles_path, :method => 'get', :class => "form-search" do %>
@@ -12,25 +12,27 @@
 <table class="table table-striped">
   <tr>
     <th>Title</th>
-    <th>Content</th>
+    <th>File Name</th>
     <th>Published</th>
-	<th>File Name</th>
+	<th>Highlighted Results</th>
     <th>Actions</th>
   </tr>
 
-<% @articles.each do |article| %>
+<% @articles.each_with_hit do |result, hit| %>
+<% article = result %>
   <tr>
-    <td><%= article.title %></td>
-    <td><%= article.content %></td>
-    <td><%= article.published_on %></td>
+    <td><%= result.title %></td>
+    <td><%= hit['_source']['filename'] %></td>
+    <td><%= result.published_on %></td>
 	<td>
-		<% if (@search == true) %>
 		<ul>
-		<% article.highlight.attachment.each do | h |%>
-			<li><%= h.html_safe %></li>
-		<% end %>
+			<% hit['highlight'].each do |key, value| %>
+			<li class="group"><i class="icon-tag"></i><%= key.upcase %></li>
+			<% value.each do |v| %>
+			<li class="highlight"><i class="icon-ok"></i><%= v.html_safe %></li>
+			<% end %>
+			<% end %>
 		</ul>
-		<% end %>
     <td width="50px" align="center">
 		<div class="btn-toolbar">
 			<div class="btn-group">
@@ -54,4 +56,3 @@
 
 <%= link_to 'New Article', new_article_path, :class => "btn" %>
 <%= link_to 'Back', articles_path, :class => "btn" if params[:q] %>
-

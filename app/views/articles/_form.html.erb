@@ -1,32 +1,50 @@
-<%= form_for(@article, :html => {:multipart => true}) do |f| %>
-  <% if @article.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@article.errors.count, "error") %> prohibited this article from being saved:</h2>
-
-      <ul>
-      <% @article.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :content %><br />
-    <%= f.text_area :content %>
-  </div>
-  <div class="field">
-    <%= f.label :published_on %><br />
-    <%= f.date_select :published_on %>
-  </div>
-  <div>
-	  <%= f.file_field :filename %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= form_for(@article, :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
+	<% if @article.errors.any? %>
+		<div id="error_explanation">
+			<h2>
+				<%= pluralize(@article.errors.count, "error") %> prohibited this article from being saved:
+			</h2>
+			<ul>
+				<% @article.errors.full_messages.each do |msg| %>
+				<li>
+					<%= msg %>
+				</li><% end %>
+			</ul>
+		</div>
+	<% end %>
+	<fieldset>
+		<div class="control-group">
+			<%= f.label :title, :class => "control-label" %>
+			<div class="controls">
+				<%= f.text_field :title, :class => "span6" %>
+			</div>
+		</div>
+		<div class="control-group">
+			<%= f.label :content, :class => "control-label" %>
+			<div class="controls">
+				<%= f.text_area :content, :rows => "6", :class => "span6" %>
+			</div>
+		</div>
+		<div class="control-group">
+			<%= f.label :published_on, :class => "control-label" %>
+			<div class="controls">
+				<input type="text" class="span2" name="article[published_on]" id="datepicker" >
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<div class="fileupload fileupload-new" data-provides="fileupload">
+				  <span class="btn btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span><input type="file" id="article_filename" name="article[filename]" /></span>
+				  <span class="fileupload-preview"></span>
+				  <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
+				</div>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<%= button_tag :submit, :class => "btn" %>
+			</div>
+		</div>
+	</fieldset>
 <% end %>
+
