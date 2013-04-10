@@ -6,7 +6,9 @@ SimpleCMS::Application.routes.draw do
     collection { get :search }
   end
   
-  devise_for :users
+  devise_for :users do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
   resources :users
 
 
