@@ -1,9 +1,13 @@
 SimpleCMS::Application.routes.draw do
-  root :to => 'articles#index'
+
+  root :to => 'home#index'
 
   resources :articles do
     collection { get :search }
   end
+  
+  devise_for :users
+  resources :users
 
 
 
