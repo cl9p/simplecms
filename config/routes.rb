@@ -4,6 +4,7 @@ SimpleCMS::Application.routes.draw do
 
   resources :articles do
     collection { get :search }
+    collection { get :download }
   end
   
   devise_for :users do

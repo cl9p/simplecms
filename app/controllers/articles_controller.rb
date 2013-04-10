@@ -105,4 +105,13 @@ class ArticlesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  # GET /articles/download/1
+  def download
+    @article = Article.find(params[:id])
+    grid_fs = Mongoid::GridFS
+    f = grid_fs.get(@article.grid_fs_id)
+    send_data f.data, filename: @article.filename
+  end
+  
 end
