@@ -7,6 +7,7 @@ class Article
   field :content, :type => String
   field :published_on, :type => Date
   field :filename, :type => String
+  field :grid_fs_id, :type => String
   
   mapping do
     puts 'created mapping'
@@ -28,10 +29,10 @@ class Article
   end
 
   def attachment
-    puts 'called attachment'
+    grid_fs = Mongoid::GridFS
+    f = grid_fs.get(self.grid_fs_id)
     if filename.present?
-       path_to_file = Rails.root.join('public', 'uploads', filename)
-       Base64.encode64(open(path_to_file) { |_file| _file.read })
+       Base64.encode64(f.data)
     end
   end
   

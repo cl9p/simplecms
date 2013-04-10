@@ -55,14 +55,14 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     puts 'create happening'
+    grid_fs = Mongoid::GridFS
     uploaded_io = params[:article][:filename]
-    File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
-        file.write(uploaded_io.read)
-    end
-    puts 'uploaded file'
+    g = grid_fs.put(uploaded_io)
+    puts "uploaded file +++++++++ #{g.inspect} +++++++++++"
     @article = Article.new(params[:article])
     puts 'created article'
     @article.filename = uploaded_io.original_filename
+    @article.grid_fs_id = g.id
     puts 'set filename in article'
     
 

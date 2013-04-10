@@ -40,6 +40,7 @@ gem 'thin'
 gem "tire", :git => "git://github.com/karmi/tire.git"
 gem "will_paginate", "~> 3.0"
 gem "mongoid", "~> 3.0.0"
+gem "mongoid-grid_fs", "~>1.8.0"
 gem "rspec-rails", ">= 2.12.2", :group => [:development, :test]
 gem "database_cleaner", ">= 1.0.0.RC1", :group => :test
 gem "mongoid-rspec", ">= 1.7.0", :group => :test
