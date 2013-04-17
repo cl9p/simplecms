@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/karmi/tire.git
-  revision: c35028539c33e1be967ebe228cff22fb754e7bab
+  revision: 46fbcbf76b8450605affc78a5eb3bea86509be5e
   specs:
     tire (0.5.7)
       activemodel (>= 3.0)
